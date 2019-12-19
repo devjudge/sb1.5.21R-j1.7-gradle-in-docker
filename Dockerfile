@@ -1,4 +1,11 @@
-FROM gradle:4.9.0-jdk7-alpine AS GRADLE_TOOL_CHAIN
+FROM gradle:4.7.0-jdk7-alpine AS GRADLE_TOOL_CHAIN
+
+# Pre build commands
+USER root
+RUN wget https://codejudge-starter-repo-artifacts.s3.ap-south-1.amazonaws.com/backend-project/springboot/gradle/1.5.x/pre-build.sh
+RUN chmod 775 ./pre-build.sh
+RUN sh pre-build.sh
+
 COPY src /tmp/src/
 COPY build.gradle /tmp/
 COPY gradlew /tmp/
